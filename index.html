@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vertical Movement Gym Department</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="style-print.css" type="text/css" media="print">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="fragen.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
+</head>
+
+<body>
+    <div id="app">
+        <div id="buffer_top">
+            <p id="text_top">{{titles[lang]}}</p>
+            <a v-on:click="switchLang()">{{ lang }}</a>
+        </div>
+
+        <transition name="logo">
+            <div v-if="target === 'start'" @click="go('video')" class="start">
+                <div class="circle_center" v-if="target === 'start'"></div>
+            </div>
+        </transition>
+
+        <transition name="video">
+            <div class="backdrop" @click="go('f1')" v-if="target === 'video'">
+                <video autoplay @ended="target = 'f1'" @pause="target = 'f1'">
+                        <source src="images/intro.webm" type="video/webm" />
+                        <source src="images/intro.mp4" type="video/mp4" />
+                </video>
+            </div>
+        </transition>
+        <transition name="question">
+        <div id="centerwrap" v-if="target !== 'start' && target !== 'video'">
+            <div id="antwortenwrap">
+                <div id="vueGenerate">
+                    <div id="imagecontainer" v-if="image">
+                        <a @click="reset" @touchstart="reset" id="homeTag"><img id="home" src="images/homefin.png" alt="home"> </a>
+                        <a onclick="javascript:window.print()" ontouchstart="javascript:window.print()" id="printTag"><img id="print" src="images/printfin.png"
+                                alt="home"> </a>
+                        <img id="imgbox" :src="image">
+                    </div>
+                    <div class="frage">
+                        <li>{{ fragen[lang][target].frage }}</li>
+                    </div>
+                    <div class="antworten">
+                        <li v-for="n in fragen[lang][target].antworten">
+                            <div v-if="n.next" @click="go(n.next)">
+                                {{ n.antwort }}
+                            </div>
+                            <div v-else="" @click="image = 'images/'+n.img; "  @touchstart="image = 'images/'+n.img; ">
+                                {{ n.antwort }}
+                            </div>
+                        </li>
+                        <div id="icons"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </transition>
+    </div>
+    <script>
+        // Prevent scrolling and bounce on iPad
+        document.ontouchmove = function(event){
+            event.preventDefault();
+        }
+
+        function getStartLanguage() {
+            var defaultLang = 'DE'
+            var supportedLanguages = Object.keys(fragenKatalog)
+
+            // Try to get the language from the browser settings
+            if (navigator.language && navigator.language.length >= 2) {
+                var browserLang = navigator.language
+
+                // Extract the first part
+                browserLang = browserLang.substring(0, 2).toLocaleUpperCase()
+
+                // Check, if we support the language
+                if (supportedLanguages.indexOf(browserLang) !== -1) {
+                    return browserLang
+                }
+            }
+
+            // return default language by default
+            return defaultLang
+        }
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                titles: titles,
+                image: "",
+                fragen: fragenKatalog,
+                target: "start",
+                languages: Object.keys(fragenKatalog),
+                lang: getStartLanguage(),
+                showQuestions: false,
+            },
+            methods: {
+                go: function(where) {
+                    this.target = where;
+                },
+                reset: function () {
+                    this.target = "start";
+                    this.image = "";
+                    this.showQuestions = false;
+                },
+                switchLang() {
+                    let index = this.languages.indexOf(this.lang)
+                    index = (index + 1) % this.languages.length
+                    this.lang = this.languages[index]
+                }
+            }
+        })
+    </script>
+</body>
+</html>

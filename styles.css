@@ -1,0 +1,391 @@
+@font-face {
+    font-family: 'Gang-of-Three';
+    src:url('fonts/go3v2.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KG-Happy';
+    src:url('fonts/KGHAPPYSolid.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    background-image: url("images/mountain_wide_smaller_traces.jpg");
+    background-attachment: fixed;
+    max-width: 1920px;
+    width:100%;
+    overflow: hidden;
+    background-size: cover;
+}
+
+#bottom_element{
+    background-color:rgb(145, 135, 135, 0.6);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100px;
+    line-height: auto;
+    border-top: 2px solid #adadad;
+}
+
+#bottom_element p{
+    margin:10px;
+    font-size: 15pt;
+    font-family: "Gang-of-Three", serif;
+    letter-spacing: 2px;
+    font-weight: 100;
+    text-align: right;
+    margin-top: 60px;
+    color: #FFF;
+}
+
+#buffer_top{
+    background-color: rgb(145, 135, 135, 0.6);
+    height: 108px;
+    border-bottom: 2px solid #adadad;
+}
+
+#buffer_top a{
+    float: right;
+    margin:0px;
+    padding: 10px;
+    font-size: 45pt;
+    font-family: "Gang-of-Three", serif;
+    letter-spacing: 2px;
+    font-weight: 100;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+#text_top {
+    margin:0px;
+    padding: 5px 10px;
+    font-size: 30pt;
+    font-family: "Gang-of-Three", serif;
+    letter-spacing: 2px;
+    font-weight: 100;
+    text-align: left;
+    color: rgb(131, 45, 56);
+    position: fixed;
+    margin-right: 100px;
+}
+
+#centerwrap{
+    width: 100%;
+    margin-top:-2px;
+    height: 2000px;
+}
+.start {
+    position: fixed;
+    top: 110px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.circle_center{
+    position: fixed;
+    border-radius: 50%;
+    width: 450px;
+    height: 450px;
+    background-image: url("images/logo.png");
+    background-repeat: round;
+    background-position: right -65px bottom 90px;
+    font-size: 25pt;
+    font-family: "Permanent Marker", serif;
+    letter-spacing: 2px;
+    font-weight: 100;
+    background-color: rgba(255,255,255,0.8);
+    line-height: 450px;
+    text-align: center;
+    margin: 0 auto;
+    left: 50%;
+    opacity: 1;
+    border: 2.4px solid rgb(183, 183, 187);
+
+    z-index: 5;
+    position:absolute; /*it can be fixed too*/
+    left:0; right:0;
+    top:0; bottom:100px;
+    margin:auto;
+
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+div.backdrop {
+    position: absolute; /*it can be fixed too*/
+    left:0;
+    right:0;
+    top: 0px;
+    bottom: 0;
+    background-color: rgb(0, 0, 0)
+}
+
+video {
+    z-index: 4;
+    width: 100%;
+    position: absolute; /*it can be fixed too*/
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    padding-bottom: 50px;
+}
+
+.logo-leave-active, .logo-leave-active .circle_center {
+    transition: all 0.5s ease;
+}
+.logo-leave-to .circle_center {
+    transform: scale(0.1);
+    opacity: 0;
+}
+.video-enter-active.backdrop {
+    transition: background-color 0.4s linear;
+}
+.video-enter-active video {
+    transition: all .4s ease;
+
+}
+.video-leave-active.backdrop  {
+    transition: background-color 0.3s linear;
+}
+.video-leave-active video {
+    transition: opacity 0.15s linear;
+
+}
+.video-leave-to video {
+    opacity: 0;
+}
+.video-leave-to.backdrop {
+    background-color: rgb(0, 0, 0, 0.0);
+}
+
+.video-enter.backdrop {
+    background-color: rgb(0, 0, 0, 0.0);
+}
+.video-enter video {
+    opacity: 0;
+}
+
+#vueGenerate{
+    margin: auto;
+    width: 40%;
+    background-color:  /* #821122 */ rgba(131, 45, 56, 1) ;
+    opacity: 60%;
+    padding: 2%;
+    border:1px solid rgb(145, 135, 135, 0.6);
+    color: #CCC;
+}
+
+#imagecontainer{
+    height: 100% !important;
+    width: 100% !important;
+    position: absolute;
+    z-index: 999;
+    margin: 0 auto;
+    background-color: rgba(0, 2, 3, 0.8);
+    left: 0;
+    display: block;
+    top: 0;
+    overflow-y: scroll
+
+}
+#imgbox{
+    max-width:100%;
+    max-height:100%;
+    pointer-events: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-top: 5%;
+    width: 70%;
+    clear: both;
+}
+
+.frage{
+    font-size: 30pt;
+}
+
+.frage li{
+    text-decoration: none;
+    font-size: 22pt;
+    list-style-type: none;
+    font-family: "KG-Happy", serif;
+    letter-spacing: 0px;
+    line-height:  140%;
+    padding: 10px;
+}
+
+.antworten{
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    margin-top: 50px;
+}
+
+.antworten li{
+    background-color:#333;
+    text-decoration: none;
+
+    font-size: 20pt;
+    list-style-type: none;
+    font-family: "Gang-of-Three", serif;
+    letter-spacing: 2px;
+    border:1px solid rgb(145, 135, 135, 0.6);
+}
+
+.antworten li > div, .antworten li > div:hover {
+    padding: 30px;
+    cursor: pointer;
+}
+
+#antwortenwrap{
+    width: 100%;
+    height: 100%;
+    background-color:rgb(145, 135, 135, 0.6);
+    padding-top:10%;
+}
+
+.antworten button{
+    background-color:rgb(184, 169, 169);
+    text-decoration: none;
+    font-size: 15pt;
+    list-style-type: none;
+    font-family: "Permanent Marker";
+    letter-spacing: 2px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border:none;
+    box-shadow: none;
+    text-decoration: none;
+    color: #fff;
+}
+
+#home{
+    max-width: 50px;
+    max-height: 50px;
+    padding-top: 20px;
+    margin-left: 20px;
+    position: relative;
+}
+
+#print{
+    max-width: 50px;
+    max-height: 50px;
+    position: relative;
+    z-index: 999;
+    margin: 5px;
+}
+#printTag{
+    margin-right: 30px;
+    margin-top: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    float: right;
+    display: block;
+
+}
+#homeTag{
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    float: left;
+    display: block;
+
+}
+#home{
+    padding:0 ;
+    max-width: 50px;
+    max-height: 50px;
+    position: relative;
+    z-index: 999;
+    margin: 5px;
+}
+/*==========================================
+===================Media Queries============
+==========================================*/
+
+@media print {
+
+}
+
+/* iPad */
+
+@media only screen and (max-width: 1024px) {
+    body{
+        height: auto;
+    }
+
+    #centerwrap{
+        width: 100%;
+        margin-top:-2px;
+    }
+
+    #vueGenerate {
+        margin: auto;
+        width: 70%;
+        background-color: rgb(131, 45, 56);
+        padding: 2%;
+        border: 1px solid rgb(145, 135, 135, 0.6);
+        color: #CCC;
+    }
+
+    .antworten{
+        padding-top: 5px;
+        padding-right: 5px;
+        padding-bottom: 5px;
+        margin-top: 50px;
+    }
+
+    #frageantowrten{
+        margin: auto;
+        width: 70%;
+        background-color:  /* #821122 */ rgba(131, 45, 56, 0.7) ;
+        padding: 2%;
+        border:1px solid rgb(145, 135, 135, 0.6);
+        color: #CCC;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    body{
+        height: auto;
+    }
+
+    #centerwrap{
+        width: 100%;
+        margin-top:-2px;
+        height: 900px;
+    }
+
+    .circle_center {
+
+        width: 300px;
+        height: 300px;
+
+    }
+
+    #frageantowrten{
+        margin: auto;
+        width: 70%;
+        background-color:  /* #821122 */ rgba(131, 45, 56, 0.7) ;
+        padding: 2%;
+        border:1px solid rgb(145, 135, 135, 0.6);
+        color: #CCC;
+    }
+}
