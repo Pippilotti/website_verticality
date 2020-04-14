@@ -1,6 +1,6 @@
 /* Maximize image */
 #imgbox{
-    height: 90% !important;
+    /* height: 90% !important; */
     width: 94% !important;
     /* max-height: 100% !important; */
     max-width: 100% !important;
